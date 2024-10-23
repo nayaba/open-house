@@ -8,7 +8,7 @@
   <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1>Edit a Listing!</h1>
-    <form>
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
       <label for="streetAddress">Street address:</label>
       <input
         type="text"
