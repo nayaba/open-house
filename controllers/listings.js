@@ -95,11 +95,25 @@ router.put('/:listingId', async (req, res) => {
   }
 })
 
+// favorite a listing
 router.post('/:listingId/favorited-by/:userId', async (req, res) => {
   try {
     await Listing.findByIdAndUpdate(req.params.listingId, {
       $push: { favoritedByUsers: req.params.userId }
     } )
+    res.redirect(`/listings/${req.params.listingId}`)
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+// unfavorite a listing
+router.delete('/:listingId/favorited-by/:userId', async (req, res) => {
+  try {
+    await Listing.findByIdAndUpdate(req.params.listingId, {
+      $pull: { favoritedByUsers: req.params.userId }
+    })
     res.redirect(`/listings/${req.params.listingId}`)
   } catch (error) {
     console.log(error)
